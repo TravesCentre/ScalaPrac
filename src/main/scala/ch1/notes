@@ -1,0 +1,8 @@
+1.2
+Procedure is often used to refer to some parameterized chunk of code that may have side effects.
+
+An expression e is referentially transparent if, for all programs p, all occurrences of e in p can be replaced by the result of evaluating e without affecting the meaning of p.
+A function f is pure if the expression f(x) is referentially transparent for all referentially transparent x.
+See - http://blog.higher-order.com/blog/2012/09/13/what-purity-is-and-isnt/
+    - http://pchiusano.github.io/2014-05-21/what-effects-are-worth-tracking.html
+1.3
