@@ -1,0 +1,29 @@
+block - 1 or more statements enclosed within a pair of braces
+
+module - An object whose primary purpose is giving its members a namespace
+
+Every value in scala is an Object except for few cases. 2+1 is syntactic sugar for 2.+(1) where + is a method name on the object 2.
+
+Loops - often replaced by  helper defs with tail recursion.
+
+- The recursive call is in tail position  i.e. the caller/method itself does nothing else with the result of recursion and just returns it.
+-- conditions for compiler to recognize tailrecursion -
+    >local method ( private) or final def(so that child class cant override).
+    >a tail-call
+    >to itself.
+- This saves call stack frames and prevents StackOverflowError for large inputs since the JVM doesn't provide this feature.So this  results in same bytecode as a while loop.
+- Can enforce a compiler check for tail recursion with @tailrec
+- when tail recursion not recognized or unenforceable, to avoid stackoverflow we can use trampolining (manual call stack) or continuation. ( see https://rd.nz/2009/04/tail-calls-tailrec-and-trampolines.html)
+
+- like Array(1,2,3) is an Array literal, (x : Int,y : Int) => x<=y is a function literal aka anonymous function
+- When we define a function literal, what is actually being defined in Scala is an object with a method called apply.
+  Scala has a special rule for this method name, so that objects that have an apply method can be called as if they were themselves methods.
+  When we define a function literal like  (a, b) => a < b, this is really syntactic sugar for the following object creation:
+
+   val lessThan = new Function2[Int,Int,Boolean] {
+    def apply(a : Int, b : Int) : Boolean = a < b
+   }
+- note that Function2[arg1type,arg2type,returntype] is an existing trait with an apply def. And lessThan(10,20) is equivalent to lessThan.apply(10,20)
+
+- To compose two functions f and g, we simply say f compose g.[10] It also provides an andThen method. f andThen g is the same as g compose f
+
